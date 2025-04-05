@@ -1,0 +1,477 @@
+<?php
+// Start session for user authentication
+session_start();
+
+// Database connection can be included here
+// require_once 'db_connect.php';
+
+// Check if user is already logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HESSOM MEDICAL Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            padding: 0;
+            color: rgb(1, 6, 9);
+            background-size: cover;
+            background-position: center center;
+            animation: backgroundAnimation 20s infinite alternate ease-in-out;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('up.webp');
+            }
+            100% {
+                background-image: url('ground.webp');
+            }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #25568e;
+            border-radius: 8px;
+            margin-top: 100px;
+        }
+
+        .catalog, #signupPage, #loginPage {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+
+        th, td {
+            border: 5px solid #121010;
+            padding: 10px;
+            text-align: center;
+            background-color: #dbe7e7;
+        }
+        th {
+            background-color: #1f5493;
+            color: #04080f;
+        }
+        img {
+            width: 300px;
+            height: 100px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label, input {
+            margin: 10px 100px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #08501e;
+            color: white;
+            position: absolute;
+            margin-top: 200px;
+            width: 100%;
+            bottom: 100;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <style>
+        body {
+          background-color: rgb(2, 15, 22);
+        }
+    </style>
+         <img id="header-logo" src="capture.png" alt="Tchoups Online Store Logo" style="display: block; margin: 5px auto; width: 1000px; height: 200px; padding: 15px;">
+        <h1 id="header-title"><marquee>WELCOME TO HESSOM MEDICAL ONLINE STORE</marquee></h1>
+    </header>
+        
+    <div class="container" id="homePage">
+        <h2 id="welcome-message">Welcome Hessom Online Store</h2>
+        <p id="description">A MEDICAL SUPPLIER FOR HOSPITALS AND HEALTH CENTERS</p>
+        <p id="cta-text">click the start button to begin shopping for amazing medical products.</p>
+        <button onclick="showCatalog()">Start</button>
+    </div>
+
+    <div class="catalog" id="catalogPage">
+        <h2>Product Catalog</h2>
+        <h2>Consumable Products</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+            </tr>
+            <?php
+            // You can fetch products from database here
+            // Example:
+            // $consumableProducts = getProductsByCategory('consumable');
+            // foreach ($consumableProducts as $product) {
+            //     echo "<tr>
+            //         <td><img src='{$product['image_url']}' alt='{$product['name']}'></td>
+            //         <td>{$product['description']}</td>
+            //     </tr>";
+            // }
+            ?>
+            <tr>
+                <td><img src="lumbar_needle.jpg" alt="Lumbar Puncture Needle"></td>
+                <td>Lumbar Puncture Needle - G19 90mm with Introducer (Box of 50)</td>
+            </tr>
+            <tr>
+                <td><img src="guedel.jpg" alt="Guedel Airway"></td>
+                <td>Guedel Airway - Size 0 (50mm), Size 2 (70mm), Size 4 (100mm), Size 5 (110mm)</td>
+            </tr>
+            <tr>
+                <td><img src="catheter.webp" alt="IV Catheter"></td>
+                <td>IV Catheter with Wings and Injection Site - G16, G18, G20 (Box of 50)</td>
+            </tr>
+            <tr>
+                <td><img src="thoracic_catheter.jpg" alt="Thoracic Drainage Catheter"></td>
+                <td>Thoracic Drainage Catheter with Trocar - Size FG 16</td>
+            </tr>
+            <tr>
+                <td><img src="specimen_container.jpg" alt="Specimen Container"></td>
+                <td>Universal Specimen Container - 30ml (Sealed Pot)</td>
+            </tr>
+            <tr>
+                <td><img src="foley_catheter.jpg" alt="Foley Catheter"></td>
+                <td>Foley Catheter 2-Way, Silicone Coated Latex - CH 06, CH 10, CH 14, CH 18</td>
+            </tr>
+            <tr>
+                <td><img src="endotracheal_tube.jpg" alt="Endotracheal Tube"></td>
+                <td>Endotracheal Tube Oral/Nasal with Cuff - FR 10, FR 12, FR 14</td>
+            </tr>
+            <tr>
+                <td><img src="blood_collection_tube.jpg" alt="Blood Collection Tube"></td>
+                <td>Blood Collection Tube - EOTA K3, Plain (No Additive - Red), Sodium Citrate 4NC</td>
+            </tr>
+            <tr>
+                <td><img src="gastric_tube.jpg" alt="Gastric Tube"></td>
+                <td>Gastric Tube - CH 12, CH 14, CH 16, CH 18</td>
+            </tr>
+            <tr>
+                <td><img src="suction_tube.jpg" alt="Suction Tube"></td>
+                <td>Suction Tube - CH 06 (30cm), CH 08 (30cm), CH 10 (50cm), CH 14</td>
+            </tr>
+        </table>
+
+        <h2>Dialysis Products</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+            </tr>
+            <?php
+            // You can fetch products from database here
+            // Example:
+            // $dialysisProducts = getProductsByCategory('dialysis');
+            // foreach ($dialysisProducts as $product) {
+            //     echo "<tr>
+            //         <td><img src='{$product['image_url']}' alt='{$product['name']}'></td>
+            //         <td>{$product['description']}</td>
+            //     </tr>";
+            // }
+            ?>
+            <tr>
+                <td><img src="dialyzer.jpg" alt="Dialyzer"></td>
+                <td>Dialyzer - Available in 1.2m², 1.4m², 1.6m², 1.8m², and 2.0m² sizes for efficient dialysis treatment.</td>
+            </tr>
+            <tr>
+                <td><img src="bloodline.jpg" alt="Bloodline"></td>
+                <td>Bloodline - Ensures safe and sterile blood transfer during dialysis sessions.</td>
+            </tr>
+            <tr>
+                <td><img src="fistula_needle.jpg" alt="Fistula Needle"></td>
+                <td>Fistula Needle - Available in Arterial G15, G16, G17 and Venous G15, G16, G17 for vascular access.</td>
+            </tr>
+            <tr>
+                <td><img src="connection_set.jpg" alt="Connection Set"></td>
+                <td>Connection/Disconnection Set - Types: Standard, Easy Pro, Galata, Sanus for dialysis safety.</td>
+            </tr>
+            <tr>
+                <td><img src="transfer_set.jpg" alt="Transfer Set"></td>
+                <td>Transfer Set - Essential for fluid transfer in dialysis treatments.</td>
+            </tr>
+            <tr>
+                <td><img src="cleaning_solution.jpg" alt="Surface Cleaning Solution"></td>
+                <td>Surface Cleaning Solution - Box of 6 pcs, ideal for sanitizing dialysis equipment.</td>
+            </tr>
+            <tr>
+                <td><img src="disinfectant.jpg" alt="Disinfectant"></td>
+                <td>Disinfectant (ECO LAVE 1L) - Effective dialysis machine disinfectant for infection control.</td>
+            </tr>
+            <tr>
+                <td><img src="bicarbonate.jpg" alt="BICART Cartridge"></td>
+                <td>BICART Cartridge 720g - Ensures proper acid-base balance in dialysis treatments.</td>
+            </tr>
+            <tr>
+                <td><img src="endotoxin_filter.jpg" alt="Endotoxin Filter"></td>
+                <td>Endotoxin / DIASAFE Filter - Removes endotoxins to maintain dialysis purity.</td>
+            </tr>
+            <tr>
+                <td><img src="heparin.jpg" alt="Heparin"></td>
+                <td>Heparin - Anticoagulant for preventing blood clotting during dialysis.</td>
+            </tr>
+        </table>
+
+        <p>Would you like to browse more and know more about the table catalog and register?</p>
+        <button onclick="goToSignup()">Yes</button>
+        <button onclick="exitSite()">No</button>
+    </div>
+
+    <div class="container" id="signupPage" style="display: none;"> 
+        <h2>Create an Account</h2>
+        <form id="signupForm" onsubmit="return signup(event)">
+            <label>Username:</label><input type="text" id="newUsername" required>
+            <label>Email:</label><input type="email" id="email" required>
+            <label>Phone Number:</label><input type="tel" id="phone" required>
+            <label>Hospital/Clinic Name:</label><input type="text" id="clinicName" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <button onclick="goToLogin()">Already have an account? Log In</button>
+        <button onclick="showHomePage()">Back to Home</button>
+    </div>
+    
+    <div class="container" id="loginPage" style="display: none;">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return login(event)">
+            <label>Username:</label><input type="text" id="loginUsername" required>
+            <label>Password:</label><input type="password" id="loginPassword" required>
+            <button type="submit">Log In</button>
+        </form>
+        <button onclick="showHomePage()">Back to Home</button>
+        <button onclick="showForgotPassword()">Forgot Password?</button>
+    </div>
+    
+    <div class="container" id="forgotPasswordPage" style="display: none;">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm" onsubmit="return retrievePassword(event)">
+            <label>Username:</label><input type="text" id="forgotUsername" required>
+            <label>Phone Number:</label><input type="tel" id="forgotPhone" required>
+            <button type="submit">Retrieve Password</button>
+        </form>
+        <button onclick="goToLogin()">Back to Login</button>
+    </div>
+    
+    <footer>
+        <p>&copy; <?php echo date('Y'); ?> Hessom Medical Products Enterprise.</p>
+    </footer>
+    
+    <script> 
+        // Check for content updates from admin panel
+        window.addEventListener('load', function() {
+            // Check if there are any stored content updates
+            checkForContentUpdates();
+            
+            // Check for notification updates
+            checkForNotificationUpdates();
+        });
+
+        // Function to check for content updates from localStorage (simulating server-side storage)
+        function checkForContentUpdates() {
+            // Update page title
+            if (localStorage.getItem('index-title')) {
+                document.getElementById('header-title').innerHTML = `<marquee>${localStorage.getItem('index-title')}</marquee>`;
+                document.title = localStorage.getItem('index-title');
+            }
+            
+            // Update welcome message
+            if (localStorage.getItem('index-welcome-message')) {
+                document.getElementById('welcome-message').textContent = localStorage.getItem('index-welcome-message');
+            }
+            
+            // Update description
+            if (localStorage.getItem('index-description')) {
+                document.getElementById('description').textContent = localStorage.getItem('index-description');
+            }
+            
+            // Update CTA text
+            if (localStorage.getItem('index-cta-text')) {
+                document.getElementById('cta-text').textContent = localStorage.getItem('index-cta-text');
+            }
+            
+            // Update logo
+            if (localStorage.getItem('index-logo')) {
+                document.getElementById('header-logo').src = localStorage.getItem('index-logo');
+            }
+        }
+
+        // Function to check for notification updates
+        function checkForNotificationUpdates() {
+            // This would be implemented if we had a notification system on the index page
+            <?php
+            // Example of PHP code to check for notifications
+            // if (isset($_SESSION['notifications']) && count($_SESSION['notifications']) > 0) {
+            //     echo "alert('You have " . count($_SESSION['notifications']) . " new notifications');";
+            // }
+            ?>
+        }
+
+        function generatePassword() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < 10; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return password;
+        }
+    
+        function sendEmail(email, password) {
+            console.log(`Sending email to ${email} with password: ${password}`);
+            alert(`Your generated password has been sent to your email: ${email}`);
+        }
+    
+        function showCatalog() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('catalogPage').style.display = 'block';
+        }
+    
+        function goToSignup() {
+            document.getElementById('catalogPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'block';
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('forgotPasswordPage').style.display = 'none';
+        }
+    
+        function goToLogin() {
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('forgotPasswordPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+        }
+    
+        function showForgotPassword() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('forgotPasswordPage').style.display = 'block';
+        }
+    
+        function retrievePassword(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('forgotUsername').value.trim();
+            const phone = document.getElementById('forgotPhone').value.trim();
+    
+            fetch("forgot_password.php", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, phone })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Password sent to your email.");
+                    goToLogin();
+                } else {
+                    alert("User not found or phone number incorrect.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while retrieving password.");
+            });
+        }
+    
+        function signup(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('newUsername').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const clinicName = document.getElementById('clinicName').value.trim();
+    
+            if (!username || !email || !phone || !clinicName) {
+                alert("Please fill in all fields.");
+                return;
+            }
+    
+            fetch("register.php", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    phone: phone,
+                    clinic: clinicName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Signup successful! Your password has been sent to your email.");
+                    goToLogin(); // Navigate to login page
+                } else {
+                    alert("Signup failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Signup error:", error);
+                alert("An error occurred during signup. Please try again.");
+            });
+        }
+    
+        function login(event) {
+            event.preventDefault();
+    
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+    
+            fetch("login.php", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Login successful! Welcome to Hessom Medical Online Store.");
+                    window.location.href = 'shop.php';
+                } else {
+                    alert("Incorrect username or password.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred during login.");
+            });
+        }
+    
+        function showHomePage() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('forgotPasswordPage').style.display = 'none';
+        }
+    
+        function exitSite() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

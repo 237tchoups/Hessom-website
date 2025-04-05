@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HESSOM MEDICAL Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            color: rgb(19, 13, 13);
+            background: url('back.webp') no-repeat center center fixed;
+            background-position: center bottom;
+            background-size: contain;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(147, 140, 140, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: rgb(31, 22, 22);
+            flex-direction: column;
+        }
+
+        /* Marquee styling */
+        .marquee {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            padding: 10px;
+            background-color: rgba(30, 24, 24, 0.7);
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #eae2e2;
+            border-radius: 8px;
+            color: black;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 200px 100;
+        }
+        th, td {
+            border: 10px solid #0e0c0c;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #104e8b;
+            color: white;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .start-btn { background-color: #28a745; color: white; }
+        .yes-btn { background-color: #104e8b; color: white; }
+        .no-btn { background-color: red; color: white; }
+    </style>
+</head>
+<img src="capture.jpg2.jpg" alt="Tchoups Online Store Logo" style="display: block; margin: 50%px auto; width: 200px;">
+<body>
+    <div class="overlay" id="introPage">
+        <h1><marquee>Welcome to Hessom Medical Online Store</marquee></h1>
+        <button class="start-btn" onclick="startWebsite()">Start</button>
+    </div>
+
+    <div class="container" id="catalogPage" style="display: none;">
+        <h2>Catalog Products</h2>
+        <h2>Dialysis Products</h2>
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><img src="dialysis1.jpg" alt="Dialyzer"></td>
+                <td>Dialyzer</td>
+                <td>High-flux dialyzer for efficient toxin removal</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis2.jpg" alt="AV Fistula Needle"></td>
+                <td>AV Fistula Needle</td>
+                <td>Used for vascular access in hemodialysis</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis3.jpg" alt="Blood Tubing Set"></td>
+                <td>Blood Tubing Set</td>
+                <td>Essential for dialysis machine connection</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis4.jpg" alt="Dialysis Catheter"></td>
+                <td>Dialysis Catheter</td>
+                <td>Temporary vascular access device</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis5.jpg" alt="Hollow Fiber Dialyzer"></td>
+                <td>Hollow Fiber Dialyzer</td>
+                <td>For low-flux dialysis treatments</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis6.jpg" alt="Concentrate Solution"></td>
+                <td>Concentrate Solution</td>
+                <td>Electrolyte solution for dialysis treatment</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis7.jpg" alt="Dialysis Chair"></td>
+                <td>Dialysis Chair</td>
+                <td>Comfortable chair for patient treatment</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis8.jpg" alt="Dialysis Machine"></td>
+                <td>Dialysis Machine</td>
+                <td>Advanced machine for hemodialysis procedures</td>
+            </tr>
+        </table>
+
+        <h2>Consumable Products</h2>
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><img src="consumable1.jpg" alt="Syringes"></td>
+                <td>Syringes</td>
+                <td>Disposable sterile syringes for medical use</td>
+            </tr>
+            <tr>
+                <td><img src="consumable2.jpg" alt="IV Tubing"></td>
+                <td>IV Tubing</td>
+                <td>Used for intravenous fluid administration</td>
+            </tr>
+            <tr>
+                <td><img src="consumable3.jpg" alt="Cotton Swabs"></td>
+                <td>Cotton Swabs</td>
+                <td>For wound cleaning and medical applications</td>
+            </tr>
+            <tr>
+                <td><img src="consumable4.jpg" alt="Gloves"></td>
+                <td>Medical Gloves</td>
+                <td>Disposable gloves for hygiene and safety</td>
+            </tr>
+            <tr>
+                <td><img src="consumable5.jpg" alt="Face Masks"></td>
+                <td>Face Masks</td>
+                <td>Protective face masks for infection control</td>
+            </tr>
+            <tr>
+                <td><img src="consumable6.jpg" alt="Gauze Bandage"></td>
+                <td>Gauze Bandage</td>
+                <td>Used for dressing wounds</td>
+            </tr>
+            <tr>
+                <td><img src="consumable7.jpg" alt="Sterile Drapes"></td>
+                <td>Sterile Drapes</td>
+                <td>Used in surgical procedures</td>
+            </tr>
+            <tr>
+                <td><img src="consumable8.jpg" alt="Alcohol Pads"></td>
+                <td>Alcohol Pads</td>
+                <td>For disinfecting skin before injection</td>
+            </tr>
+        </table>
+        <p>Continue to visit our website for more informations about the table</p>
+        <p>Do you want to continue browsing our website?</p>
+        <div class="buttons">
+            <button class="yes-btn" onclick="continueToShop()">Yes</button>
+            <button class="no-btn" onclick="exitWebsite()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function startWebsite() {
+            document.getElementById('introPage').style.display = 'none';
+            document.getElementById('catalogPage').style.display = 'block';
+        }
+        function exitWebsite() {
+    document.getElementById('catalogPage').style.display = 'none';
+    document.getElementById('introPage').style.display = 'flex';
+}
+
+        function continueToShop() {
+            window.location.href = 'New website.html';
+        }
+
+        function exitWebsite() {
+            window.close();
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essom Medical Products Enterprise</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #104e8b;
+    }
+    header {
+      background-color: #104e8b;
+      color: white;
+      padding: 5px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #199719;
+      padding: 10px;
+    }
+    nav a {
+      color: rgb(243, 248, 242);
+      margin: 0 100px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .banner {
+      background-image: url('TYPE.webp');
+      background-color: #1eff1e;
+      background-size: auto;
+      background-position: center;
+      color: rgb(40, 191, 45);
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .products, .about-us, .contact-us {
+      display: none;
+      padding: 40px 20px;
+    }
+    .product-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid #ddd;
+    }
+    footer {
+      background-color: #199719;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+    <img src="capture.jpg2.jpg" alt="Tchoups Online Store Logo" style="display: block; margin: 10%px auto; width: 150px;">
+  <marquee><h1>Hessom Medical Supplies Company for Hospitals</h1></marquee>
+</header>
+
+<nav>
+  <a onclick="showSection('Home')">Home</a>
+  <a onclick="showSection('products')">Products</a>
+  <a onclick="showSection('about-us')">About Us</a>
+  <a onclick="showSection('contact-us')">Contact</a>
+</nav>
+
+<div class="banner">
+  <h1>Providing Quality Medical Supplies to Hospitals</h1>
+  <p>Your trusted partner in healthcare solutions.</p>
+</div>
+
+<section id="products" class="products">
+  <h2>Our Products</h2>
+  <div class="product-card">
+    <img src="IMG-20241029-WA0010.jpg" alt="Hospital Bed">
+    <h3>Hospital Bed</h3>
+    <p>High-quality hospital beds for comfort and support.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/300x200" alt="Syringes">
+    <h3>Syringes</h3>
+    <p>Disposable syringes for safe and efficient use.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/300x200" alt="Medical Gloves">
+    <h3>Medical Gloves</h3>
+    <p>Durable gloves for medical professionals.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/300x200" alt="Stethoscope">
+    <h3>Stethoscope</h3>
+    <p>Accurate and reliable stethoscopes for diagnosis.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/300x200" alt="Face Masks">
+    <h3>Face Masks</h3>
+    <p>Protective face masks for healthcare professionals.</p>
+  </div>
+</section>
+
+<section id="about-us" class="about-us">
+  <h2>About Us</h2>
+  <p>Essom Medical Supplies Enterprise is a trusted provider of high-quality medical equipment and supplies. We aim to serve hospitals, clinics, and healthcare professionals with reliable and affordable products.</p>
+</section>
+
+<section id="contact-us" class="contact-us">
+  <h2>Contact Us</h2>
+  <div class="contact-info">
+    <p>Location: Country: Cameroun, City: Douala, P.O. Box: 2540</p>
+    <p>Phone: CMR Tél. (237) 691 26 66 01 / 697 00 48 91 / 698 10 00 00</p>
+    <p>NIU: MO31913914380Q | Email: hessom.medical@gmail.com</p>
+    <p>Follow us on:</p>
+    <div class="social-icons">
+      <a href="https://wa.me/123456789" target="_blank">WhatsApp</a> |
+      <a href="https://www.facebook.com" target="_blank">Facebook</a> |
+      <a href="https://www.twitter.com" target="_blank">Twitter</a> |
+      <a href="https://www.instagram.com" target="_blank">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Hessom Medical Supplies Enterprise. All rights reserved.</p>
+</footer>
+
+<script>
+  function showSection(sectionId) {
+    document.querySelectorAll('section').forEach(section => section.style.display = 'none');
+    document.getElementById(sectionId).style.display = 'block';
+  }
+  const productList = document.getElementById('product-list');
+    products.forEach(product => {
+      const productCard = document.createElement('div');
+      productCard.className = 'product-card';
+      productCard.innerHTML = `
+        <img src="IMG-20241029-WA0010.jpg" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>Price: <span class="price">FCFA${product.price}</span></p>
+        <label for="quantity-${product.name}">Quantity:</label>
+        <input type="number" id="quantity-${product.name}" min="1" value="1" onchange="calculatePrice('${product.name}', ${product.price})">
+        <p>Total Price: <span id="total-${product.name}" class="price">$${product.price}</span></p>
+      `;
+      productList.appendChild(productCard);
+    });
+
+  function calculatePrice(productName, pricePerUnit) {
+    const quantity = document.getElementById(`quantity-${productName}`).value;
+    const totalPrice = quantity * pricePerUnit;
+    document.getElementById(`total-${productName}`).textContent = `$${totalPrice.toFixed(2)}`;
+  }
+
+  // Load products when the page loads
+  window.onload = function() {
+    loadProducts();
+  };
+</script>
+
+</body>
+</html>

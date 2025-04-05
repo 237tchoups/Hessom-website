@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HESSOM MEDICAL Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 100;
+            padding: 10;
+            color: rgb(15, 8, 8);
+            background-size: contain;
+            background-position: center;
+            animation: backgroundAnimation 30s infinite alternate ease-in-out;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('back.webp');
+            }
+            100% {
+                background-image: url('ground .webp');
+            }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #104e8b;
+            border-radius: 8px;
+            margin-top: 100px;
+        }
+
+        .catalog {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #111010;
+            padding: 100px;
+            text-align: center;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="capture.jpg2.jpg" alt="Tchoups Online Store Logo" style="display: block; margin: 10%px auto auto; width: 200px;">
+        <h1><marquee>WELCOME TO HESSOM MEDICAL ONLINE STORE</marquee></h1>
+    </header>
+        
+    <div class="container" id="homePage">
+        <h2>Welcome to Our Online Shop</h2>
+        <p>Sign in or create an account to start shopping for amazing products.</p>
+        <button onclick="showCatalog()">Start</button>
+    </div>
+
+    <div class="catalog" id="catalogPage">
+        <h2>Consumable Products</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><img src="consumable1.jpg" alt="Consumable Product 1"></td>
+                <td>Product 1 Description</td>
+            </tr>
+            <tr>
+                <td><img src="consumable2.jpg" alt="Consumable Product 2"></td>
+                <td>Product 2 Description</td>
+            </tr>
+            <!-- Add 6 more rows for consumable products -->
+        </table>
+
+        <h2>Dialysis Products</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><img src="dialysis1.jpg" alt="Dialysis Product 1"></td>
+                <td>Product 1 Description</td>
+            </tr>
+            <tr>
+                <td><img src="dialysis2.jpg" alt="Dialysis Product 2"></td>
+                <td>Product 2 Description</td>
+            </tr>
+            <!-- Add 6 more rows for dialysis products -->
+        </table>
+
+        <p>Would you like to browse more and register?</p>
+        <button onclick="showHomePage()">Yes</button>
+        <button onclick="exitSite()">No</button>
+    </div>
+
+    <script>
+        function showCatalog() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('catalogPage').style.display = 'block';
+        }
+
+        function showHomePage() {
+            document.getElementById('catalogPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'block';
+        }
+
+        function exitSite() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

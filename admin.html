@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hessom Medical - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #104e8b;
+            --secondary-color: #08501e;
+            --accent-color: #1f5493;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .sidebar-header h3 {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu ul {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Content Area Styles */
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .content-header {
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content-header h2 {
+            color: var(--primary-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+        
+        .card-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .card-info p {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .bg-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .bg-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .bg-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        /* Tables */
+        .table-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .table-header h3 {
+            color: var(--primary-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+        
+        table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .action-buttons a {
+            margin-right: 5px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .edit-btn {
+            background-color: var(--warning-color);
+        }
+        
+        .delete-btn {
+            background-color: var(--danger-color);
+        }
+        
+        .view-btn {
+            background-color: var(--primary-color);
+        }
+        
+        /* Forms */
+        .form-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        /* Section Visibility */
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+            
+            .content {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+            }
+            
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Hessom Medical</h3>
+                <p>Admin Panel</p>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li><a href="#" class="active" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#" onclick="showSection('products')"><i class="fas fa-box"></i> <span>Products</span></a></li>
+                    <li><a href="#" onclick="showSection('orders')"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+                    <li><a href="#" onclick="showSection('users')"><i class="fas fa-users"></i> <span>Users</span></a></li>
+                    <li><a href="#" onclick="showSection('content')"><i class="fas fa-edit"></i> <span>Content</span></a></li>
+                    <li><a href="#" onclick="showSection('notifications')"><i class="fas fa-bell"></i> <span>Notifications</span></a></li>
+                    <li><a href="#" onclick="showSection('settings')"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="index.php" target="_blank"><i class="fas fa-home"></i> <span>View Website</span></a></li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content">
+            <div class="content-header">
+                <h2>Admin Dashboard</h2>
+                <div class="user-info">
+                    <img src="admin-avatar.jpg" alt="Admin">
+                    <span>Admin User</span>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-info">
+                            <h3 id="total-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3 id="total-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3 id="total-users">0</h3>
+                            <p>Registered Users</p>
+                        </div>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3 id="total-revenue">0 FCFA</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                        <div class="card-icon bg-danger">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Recent Orders</h3>
+                        <a href="#" onclick="showSection('orders')" class="btn btn-primary">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Hospital</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-orders">
+                            <!-- Recent orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Products Section -->
+            <div id="products" class="section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Product Management</h3>
+                        <button class="btn btn-primary" onclick="showAddProductForm()">Add New Product</button>
+                    </div>
+                    
+                    <div id="product-form" style="display: none;" class="form-container">
+                        <h3 id="product-form-title">Add New Product</h3>
+                        <form id="add-product-form">
+                            <input type="hidden" id="product-id">
+                            <div class="form-group">
+                                <label for="product-category">Category</label>
+                                <select id="product-category" class="form-control" required>
+                                    <option value="">Select Category</option>
+                                    <option value="dialysis">Dialysis</option>
+                                    <option value="consumable">Consumable</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-name">Product Name</label>
+                                <input type="text" id="product-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-designation">Designation</label>
+                                <input type="text" id="product-designation" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-packaging">Packaging</label>
+                                <input type="text" id="product-packaging" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-quantity">Quantity</label>
+                                <input type="number" id="product-quantity" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-description">Description</label>
+                                <textarea id="product-description" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-expiration">Expiration Date</label>
+                                <input type="text" id="product-expiration" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">Price (FCFA)</label>
+                                <input type="number" id="product-price" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-image">Image URL</label>
+                                <input type="text" id="product-image" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Save Product</button>
+                                <button type="button" class="btn btn-danger" onclick="cancelProductForm()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-list">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Orders Section -->
+            <div id="orders" class="section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Order Management</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Hospital</th>
+                                <th>Date</th>
+                                <th>Total Amount</th>
+                                <th>Paid Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Order Details Modal -->
+                <div id="order-details-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+                    <div style="background-color: white; margin: 50px auto; padding: 20px; width: 80%; max-width: 800px; border-radius: 5px; max-height: 80vh; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>Order Details</h3>
+                            <button onclick="closeOrderDetails()" style="background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+                        </div>
+                        <div id="order-details-content">
+                            <!-- Order details will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Users Section -->
+            <div id="users" class="section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>User Management</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Hospital/Clinic</th>
+                                <th>Registration Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-list">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Content Management Section -->
+            <div id="content" class="section">
+                <div class="form-container">
+                    <div class="table-header">
+                        <h3>Website Content Management</h3>
+                    </div>
+                    
+                    <ul class="nav nav-tabs" style="display: flex; list-style: none; margin-bottom: 20px; border-bottom: 1px solid #ddd;">
+                        <li style="margin-right: 10px;"><a href="#" onclick="showContentTab('index')" style="padding: 10px 15px; display: inline-block; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 5px 5px 0 0;">Index Page</a></li>
+                        <li><a href="#" onclick="showContentTab('shop')" style="padding: 10px 15px; display: inline-block; background-color: #ddd; color: #333; text-decoration: none; border-radius: 5px 5px 0 0;">Shop Page</a></li>
+                    </ul>
+                    
+                    <div id="index-content" class="content-tab" style="display: block;">
+                        <form id="index-content-form">
+                            <div class="form-group">
+                                <label for="index-title">Page Title</label>
+                                <input type="text" id="index-title" class="form-control" value="WELCOME TO HESSOM MEDICAL ONLINE STORE">
+                            </div>
+                            <div class="form-group">
+                                <label for="index-welcome-message">Welcome Message</label>
+                                <input type="text" id="index-welcome-message" class="form-control" value="Welcome Hessom Online Store">
+                            </div>
+                            <div class="form-group">
+                                <label for="index-description">Description</label>
+                                <input type="text" id="index-description" class="form-control" value="A MEDICAL SUPPLIER FOR HOSPITALS AND HEALTH CENTERS">
+                            </div>
+                            <div class="form-group">
+                                <label for="index-cta-text">CTA Text</label>
+                                <input type="text" id="index-cta-text" class="form-control" value="click the start button to begin shopping for amazing medical products.">
+                            </div>
+                            <div class="form-group">
+                                <label for="index-logo">Logo URL</label>
+                                <input type="text" id="index-logo" class="form-control" value="capture.png">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="shop-content" class="content-tab" style="display: none;">
+                        <form id="shop-content-form">
+                            <div class="form-group">
+                                <label for="shop-title">Page Title</label>
+                                <input type="text" id="shop-title" class="form-control" value="Hessom Medical Supplies Company for Hospitals">
+                            </div>
+                            <div class="form-group">
+                                <label for="shop-banner-title">Banner Title</label>
+                                <input type="text" id="shop-banner-title" class="form-control" value="Providing Quality Medical Supplies to Hospitals">
+                            </div>
+                            <div class="form-group">
+                                <label for="shop-banner-description">Banner Description</label>
+                                <input type="text" id="shop-banner-description" class="form-control" value="Your trusted partner in healthcare solutions.">
+                            </div>
+                            <div class="form-group">
+                                <label for="shop-about-content">About Us Content</label>
+                                <textarea id="shop-about-content" class="form-control">Hessom Medical Supplies Enterprise is a trusted provider of high-quality medical equipment and supplies. We serve hospitals, clinics, and healthcare professionals with reliable and affordable products.</textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notifications Section -->
+            <div id="notifications" class="section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Notification Management</h3>
+                        <button class="btn btn-primary" onclick="showAddNotificationForm()">Add New Notification</button>
+                    </div>
+                    
+                    <div id="notification-form" style="display: none;" class="form-container">
+                        <h3>Add New Notification</h3>
+                        <form id="add-notification-form">
+                            <div class="form-group">
+                                <label for="notification-title">Title</label>
+                                <input type="text" id="notification-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="notification-message">Message</label>
+                                <textarea id="notification-message" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Send Notification</button>
+                                <button type="button" class="btn btn-danger" onclick="cancelNotificationForm()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Read</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notifications-list">
+                            <!-- Notifications will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Settings Section -->
+            <div id="settings" class="section">
+                <div class="form-container">
+                    <div class="table-header">
+                        <h3>Admin Settings</h3>
+                    </div>
+                    <form id="admin-settings-form">
+                        <div class="form-group">
+                            <label for="admin-username">Username</label>
+                            <input type="text" id="admin-username" class="form-control" value="admin">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-email">Email</label>
+                            <input type="email" id="admin-email" class="form-control" value="admin@hessom.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-password">New Password</label>
+                            <input type="password" id="admin-password" class="form-control" placeholder="Leave blank to keep current password">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-confirm-password">Confirm New Password</label>
+                            <input type="password" id="admin-confirm-password" class="form-control" placeholder="Leave blank to keep current password">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Save Settings</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Show/Hide Sections
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.sidebar-menu a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            
+            // Update content header title
+            const sectionTitles = {
+                'dashboard': 'Admin Dashboard',
+                'products': 'Product Management',
+                'orders': 'Order Management',
+                'users': 'User Management',
+                'content': 'Content Management',
+                'notifications': 'Notification Management',
+                'settings': 'Admin Settings'
+            };
+            document.querySelector('.content-header h2').textContent = sectionTitles[sectionId];
+            
+            // Load section data if needed
+            if (sectionId === 'dashboard') {
+                loadDashboardData();
+            } else if (sectionId === 'products') {
+                loadProducts();
+            } else if (sectionId === 'orders') {
+                loadOrders();
+            } else if (sectionId === 'users') {
+                loadUsers();
+            } else if (sectionId === 'notifications') {
+                loadNotifications();
+            }
+        }
+        
+        // Content Management Tabs
+        function showContentTab(tabId) {
+            document.querySelectorAll('.content-tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(`${tabId}-content`).style.display = 'block';
+            
+            document.querySelectorAll('.nav-tabs a').forEach(link => {
+                link.style.backgroundColor = '#ddd';
+                link.style.color = '#333';
+            });
+            document.querySelector(`.nav-tabs a[onclick="showContentTab('${tabId}')"]`).style.backgroundColor = 'var(--primary-color)';
+            document.querySelector(`.nav-tabs a[onclick="showContentTab('${tabId}')"]`).style.color = 'white';
+        }
+        
+        // Product Form Functions
+        function showAddProductForm() {
+            document.getElementById('product-form-title').textContent = 'Add New Product';
+            document.getElementById('product-id').value = '';
+            document.getElementById('add-product-form').reset();
+            document.getElementById('product-form').style.display = 'block';
+        }
+        
+        function showEditProductForm(productId) {
+            document.getElementById('product-form-title').textContent = 'Edit Product';
+            
+            // In a real application, you would fetch the product data from the server
+            // For now, we'll use dummy data
+            document.getElementById('product-id').value = productId;
+            document.getElementById('product-category').value = 'dialysis'; // Example value
+            document.getElementById('product-name').value = 'Dialyzer'; // Example value
+            document.getElementById('product-designation').value = '1.2 m² / 1.4 m² / 1.6 m² / 1.8 m² / 2.0 m²'; // Example value
+            document.getElementById('product-packaging').value = 'Unit'; // Example value
+            document.getElementById('product-quantity').value = '4472'; // Example value
+            document.getElementById('product-description').value = 'High-efficiency dialyzers for hemodialysis.'; // Example value
+            document.getElementById('product-expiration').value = 'Dec-25'; // Example value
+            document.getElementById('product-price').value = '8000'; // Example value
+            document.getElementById('product-image').value = 'dialyzer.jpg'; // Example value
+            
+            document.getElementById('product-form').style.display = 'block';
+        }
+        
+        function cancelProductForm() {
+            document.getElementById('product-form').style.display = 'none';
+        }
+        
+        // Notification Form Functions
+        function showAddNotificationForm() {
+            document.getElementById('notification-form').style.display = 'block';
+        }
+        
+        function cancelNotificationForm() {
+            document.getElementById('notification-form').style.display = 'none';
+        }
+        
+        // Order Details Modal
+        function showOrderDetails(orderId) {
+            // In a real application, you would fetch the order details from the server
+            // For now, we'll use dummy data
+            const orderDetailsHTML = `
+                <div style="margin-bottom: 20px;">
+                    <h4>Order #${orderId}</h4>
+                    <p><strong>Hospital:</strong> Central Hospital</p>
+                    <p><strong>Location:</strong> Douala</p>
+                    <p><strong>Date:</strong> 2023-05-15</p>
+                    <p><strong>Status:</strong> <span style="color: green;">Completed</span></p>
+                </div>
+                
+                <h4>Order Items</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Designation</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Quantity</th>
+                            <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">Unit Price</th>
+                            <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Dialyzer</td>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">1.6 m²</td>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">5</td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">8,000 FCFA</td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">40,000 FCFA</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Bloodline</td>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Standard</td>
+                            <td style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">10</td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">5,000 FCFA</td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">50,000 FCFA</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>Total:</strong></td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>90,000 FCFA</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>Paid (50%):</strong></td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>45,000 FCFA</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>Remaining:</strong></td>
+                            <td style="padding: 10px; text-align: right; border-bottom: 1px solid #ddd;"><strong>45,000 FCFA</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+                <h4>Payment Information</h4>
+                <p><strong>Payment Method:</strong> MTN Mobile Money</p>
+                <p><strong>Phone Number:</strong> +237 6XX XXX XXX</p>
+                <p><strong>Transaction ID:</strong> TXN-123456</p>
+                <p><strong>Payment Date:</strong> 2023-05-15</p>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="printOrder(${orderId})">Print Order</button>
+                    <button class="btn btn-warning" onclick="updateOrderStatus(${orderId})">Update Status</button>
+                </div>
+            `;
+            
+            document.getElementById('order-details-content').innerHTML = orderDetailsHTML;
+            document.getElementById('order-details-modal').style.display = 'block';
+        }
+        
+        function closeOrderDetails() {
+            document.getElementById('order-details-modal').style.display = 'none';
+        }
+        
+        // Data Loading Functions (These would fetch data from the server in a real application)
+        function loadDashboardData() {
+            // For now, we'll use dummy data
+            document.getElementById('total-products').textContent = '20';
+            document.getElementById('total-orders').textContent = '45';
+            document.getElementById('total-users').textContent = '30';
+            document.getElementById('total-revenue').textContent = '2,500,000 FCFA';
+            
+            // Load recent orders
+            const recentOrdersHTML = `
+                <tr>
+                    <td>ORD-123456</td>
+                    <td>Central Hospital</td>
+                    <td>2023-05-15</td>
+                    <td>90,000 FCFA</td>
+                    <td><span style="color: green;">Completed</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123456')">View</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ORD-123457</td>
+                    <td>General Hospital</td>
+                    <td>2023-05-14</td>
+                    <td>120,000 FCFA</td>
+                    <td><span style="color: orange;">Pending</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123457')">View</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ORD-123458</td>
+                    <td>St. Mary's Clinic</td>
+                    <td>2023-05-13</td>
+                    <td>75,000 FCFA</td>
+                    <td><span style="color: blue;">Processing</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123458')">View</a>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('recent-orders').innerHTML = recentOrdersHTML;
+        }
+        
+        function loadProducts() {
+            // For now, we'll use dummy data
+            const productsHTML = `
+                <tr>
+                    <td>1</td>
+                    <td><img src="dialyzer.jpg" alt="Dialyzer" style="width: 50px; height: 50px;"></td>
+                    <td>Dialyzer</td>
+                    <td>Dialysis</td>
+                    <td>8,000 FCFA</td>
+                    <td>4472</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="showEditProductForm(1)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteProduct(1)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><img src="bloodline.jpg" alt="Bloodline" style="width: 50px; height: 50px;"></td>
+                    <td>Bloodline</td>
+                    <td>Dialysis</td>
+                    <td>5,000 FCFA</td>
+                    <td>48290</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="showEditProductForm(2)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteProduct(2)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td><img src="lumbar_needle.jpg" alt="Lumbar Puncture Needle" style="width: 50px; height: 50px;"></td>
+                    <td>Lumbar Puncture Needle</td>
+                    <td>Consumable</td>
+                    <td>5,000 FCFA</td>
+                    <td>50</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="showEditProductForm(11)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteProduct(11)">Delete</a>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('products-list').innerHTML = productsHTML;
+        }
+        
+        function loadOrders() {
+            // For now, we'll use dummy data
+            const ordersHTML = `
+                <tr>
+                    <td>ORD-123456</td>
+                    <td>Central Hospital</td>
+                    <td>2023-05-15</td>
+                    <td>90,000 FCFA</td>
+                    <td>45,000 FCFA</td>
+                    <td><span style="color: green;">Completed</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123456')">View</a>
+                        <a href="#" class="edit-btn" onclick="updateOrderStatus('ORD-123456')">Update</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ORD-123457</td>
+                    <td>General Hospital</td>
+                    <td>2023-05-14</td>
+                    <td>120,000 FCFA</td>
+                    <td>60,000 FCFA</td>
+                    <td><span style="color: orange;">Pending</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123457')">View</a>
+                        <a href="#" class="edit-btn" onclick="updateOrderStatus('ORD-123457')">Update</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ORD-123458</td>
+                    <td>St. Mary's Clinic</td>
+                    <td>2023-05-13</td>
+                    <td>75,000 FCFA</td>
+                    <td>37,500 FCFA</td>
+                    <td><span style="color: blue;">Processing</span></td>
+                    <td class="action-buttons">
+                        <a href="#" class="view-btn" onclick="showOrderDetails('ORD-123458')">View</a>
+                        <a href="#" class="edit-btn" onclick="updateOrderStatus('ORD-123458')">Update</a>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('orders-list').innerHTML = ordersHTML;
+        }
+        
+        function loadUsers() {
+            // For now, we'll use dummy data
+            const usersHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>centralhospital</td>
+                    <td>info@centralhospital.com</td>
+                    <td>Central Hospital</td>
+                    <td>2023-01-15</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="editUser(1)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteUser(1)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>generalhospital</td>
+                    <td>info@generalhospital.com</td>
+                    <td>General Hospital</td>
+                    <td>2023-02-20</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="editUser(2)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteUser(2)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>stmarys</td>
+                    <td>info@stmarys.com</td>
+                    <td>St. Mary's Clinic</td>
+                    <td>2023-03-10</td>
+                    <td class="action-buttons">
+                        <a href="#" class="edit-btn" onclick="editUser(3)">Edit</a>
+                        <a href="#" class="delete-btn" onclick="deleteUser(3)">Delete</a>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('users-list').innerHTML = usersHTML;
+        }
+        
+        function loadNotifications() {
+            // For now, we'll use dummy data
+            const notificationsHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>New Order</td>
+                    <td>New order #ORD-123456 from Central Hospital for 90,000 FCFA</td>
+                    <td>2023-05-15</td>
+                    <td>Yes</td>
+                    <td class="action-buttons">
+                        <a href="#" class="delete-btn" onclick="deleteNotification(1)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Payment Received</td>
+                    <td>Payment of 60,000 FCFA received for order #ORD-123457</td>
+                    <td>2023-05-14</td>
+                    <td>Yes</td>
+                    <td class="action-buttons">
+                        <a href="#" class="delete-btn" onclick="deleteNotification(2)">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>New User</td>
+                    <td>New user registered: St. Mary's Clinic</td>
+                    <td>2023-05-13</td>
+                    <td>No</td>
+                    <td class="action-buttons">
+                        <a href="#" class="delete-btn" onclick="deleteNotification(3)">Delete</a>
+                    </td>
+                </tr>
+            `;
+            document.getElementById('notifications-list').innerHTML = notificationsHTML;
+        }
+        
+        // Form Submission Handlers
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send the form data to the server
+            alert('Product saved successfully!');
+            cancelProductForm();
+            loadProducts();
+        });
+        
+        document.getElementById('add-notification-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send the form data to the server
+            alert('Notification sent successfully!');
+            cancelNotificationForm();
+            loadNotifications();
+        });
+        
+        document.getElementById('index-content-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send the form data to the server
+            // For now, we'll use localStorage to simulate server storage
+            localStorage.setItem('index-title', document.getElementById('index-title').value);
+            localStorage.setItem('index-welcome-message', document.getElementById('index-welcome-message').value);
+            localStorage.setItem('index-description', document.getElementById('index-description').value);
+            localStorage.setItem('index-cta-text', document.getElementById('index-cta-text').value);
+            localStorage.setItem('index-logo', document.getElementById('index-logo').value);
+            
+            alert('Index page content updated successfully!');
+        });
+        
+        document.getElementById('shop-content-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send the form data to the server
+            // For now, we'll use localStorage to simulate server storage
+            localStorage.setItem('shop-title', document.getElementById('shop-title').value);
+            localStorage.setItem('shop-banner-title', document.getElementById('shop-banner-title').value);
+            localStorage.setItem('shop-banner-description', document.getElementById('shop-banner-description').value);
+            localStorage.setItem('shop-about-content', document.getElementById('shop-about-content').value);
+            
+            alert('Shop page content updated successfully!');
+        });
+        
+        document.getElementById('admin-settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send the form data to the server
+            
+            const password = document.getElementById('admin-password').value;
+            const confirmPassword = document.getElementById('admin-confirm-password').value;
+            
+            if (password && password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            alert('Admin settings updated successfully!');
+        });
+        
+        // Other Functions
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                // In a real application, you would send a request to the server
+                alert('Product deleted successfully!');
+                loadProducts();
+            }
+        }
+        
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                // In a real application, you would send a request to the server
+                alert('User deleted successfully!');
+                loadUsers();
+            }
+        }
+        
+        function deleteNotification(notificationId) {
+            if (confirm('Are you sure you want to delete this notification?')) {
+                // In a real application, you would send a request to the server
+                alert('Notification deleted successfully!');
+                loadNotifications();
+            }
+        }
+        
+        function updateOrderStatus(orderId) {
+            const newStatus = prompt('Enter new status (Pending, Processing, Completed, Cancelled):');
+            if (newStatus) {
+                // In a real application, you would send a request to the server
+                alert(`Order ${orderId} status updated to ${newStatus}!`);
+                loadOrders();
+            }
+        }
+        
+        function printOrder(orderId) {
+            alert(`Printing order ${orderId}...`);
+            // In a real application, you would open a print dialog
+        }
+        
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real application, you would send a request to the server
+                window.location.href = 'login.php';
+            }
+        }
+        
+        // Initialize the dashboard on page load
+        window.addEventListener('load', function() {
+            loadDashboardData();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <title>HESSOM MEDICAL Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 100;
+            padding: 10;
+            color: rgb(15, 8, 8);
+            background-size: contain;
+            background-position: center bottom;
+            animation: backgroundAnimation 30s infinite alternate ease-in-out;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('back.webp');
+            }
+            100% {
+                background-image: url('ground .webp');
+            }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #104e8b;
+            border-radius: 8px;
+            margin-top: 100px;
+        }
+        * Marquee styling */
+          .marquee {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, button {
+            margin: 10px 0;
+        }
+        input {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(249, 246, 246, 0.7);
+            margin-top: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="capture.jpg2.jpg" alt="Tchoups Online Store Logo" style="display: block; margin: 10%px auto; width: 200px;">
+        <h1><marquee>WELCOME TO HESSOM MEDICAL ONLINE STORE</marquee></h1>
+        
+    </header>
+        
+    <div class="container">
+        <div id="homePage">
+            <h2>Welcome to Our Online Shop</h2>
+            <p>Sign in or create an account to start shopping for amazing products.</p>
+            <button onclick="showLoginForm()">Log In</button>
+            <button onclick="showSignupForm()">Sign Up</button>
+        </div>
+
+        <div id="loginPage" style="display: none;">
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="return login(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit">Log In</button>
+            </form>
+            <button onclick="showHomePage()">Back to Home</button>
+        </div>
+
+        <div id="signupPage" style="display: none;">
+            <h2>Create an Account</h2>
+            <form id="signupForm" onsubmit="return signup(event)">
+                <label for="newUsername">Username:</label>
+                <input type="text" id="newUsername" required>
+                
+                <label for="newPassword">Password:</label>
+                <input type="password" id="newPassword" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" required>
+                
+                <label for="hospital">Hospital/Clinic Name:</label>
+                <input type="text" id="hospital" required>
+                
+                <button type="submit">Sign Up</button>
+            </form>
+            <button onclick="showHomePage()">Back to Home</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Hessom Sarl Company. All rights reserved.</p>
+      </footer>
+
+    <script>
+        function showLoginForm() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('signupPage').style.display = 'none';
+        }
+
+        function showSignupForm() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'block';
+            document.getElementById('loginPage').style.display = 'none';
+        }
+
+        function showHomePage() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'none';
+        }
+
+        function login(event) {
+            event.preventDefault();
+            alert('Login successful! Welcome to Hessom Medical Online Store.');
+            window.location.href = 'shop.html';
+        }
+
+        function signup(event) {
+            event.preventDefault();
+            alert('Account created successfully! You can now log in at any time.');
+            window.location.href = 'shop.html';
+            showLoginForm();
+        }
+    </script>
+</body>
+</html>
